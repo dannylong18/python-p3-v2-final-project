@@ -7,4 +7,5 @@ class Treatment:
         self.name = name
         self.dated_started = date_started
 
-    
+    def __repr__(self):
+        return f"<Treatment {self.id}: {self.name}, {self.dated_started}>"

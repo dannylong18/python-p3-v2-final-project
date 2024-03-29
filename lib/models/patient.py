@@ -9,4 +9,5 @@ class Patient:
         self.insurance = insurance
         self.treatment_id = treatment_id
 
-    
+    def __repr__(self):
+        return f"<Patient {self.id}: {self.name}, {self.birthday}, {self.insurance}>"
