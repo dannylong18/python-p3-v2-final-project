@@ -7,7 +7,11 @@ def list_patients():
     for patient in patients:
         print(patient)
 
+def find_patient_by_name():
+    name = input("Enter the patient's first and last name: ")
+    patient = Patient.find_patient_by_name(name)
 
+    print(patient) if patient else print (f'Patient {name} not found')
 
 
 
