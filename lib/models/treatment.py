@@ -4,13 +4,13 @@ class Treatment:
 
     all = {}
 
-    def __init__(self, name, date_started, id=None):
+    def __init__(self, name, duration, id=None):
         self.id = id
         self.name = name
-        self.date_started = date_started
+        self.duration = duration
 
     def __repr__(self):
-        return f"<Treatment {self.id}: {self.name}, {self.date_started}>"
+        return f"<Treatment {self.id}: {self.name}, {self.duration}>"
     
     @property
     def name (self):
@@ -25,16 +25,16 @@ class Treatment:
             raise ValueError ('Name must be a non-empty string')
         
     @property
-    def date_started (self):
-        return self._date_started 
+    def duration (self):
+        return self._duration 
     
-    @date_started.setter
-    def date_started (self, date_started):
-        if isinstance (date_started, int) and len(date_started):
-            self._date_started = date_started
+    @duration.setter
+    def duration (self, duration):
+        if isinstance (duration, int) and len(duration):
+            self._duration = duration
 
         else:
-            raise ValueError ('Date_started must be an appropriate integer')
+            raise ValueError ('Duration must be an appropriate integer')
         
     
 
@@ -45,15 +45,15 @@ class Treatment:
         sql = '''CREATE TABLE IF NOT EXISTS treatments (
         id INTEGER PRIMARY KEY, 
         name TEXT, 
-        date_started INTEGER,
+        duration INTEGER,
         )'''
 
         CURSOR.execute(sql)
         CONN.commit()
 
     @classmethod
-    def create_treatment(cls, name, date_started):
-        treatment = cls(name, date_started)
+    def create_treatment(cls, name, duration):
+        treatment = cls(name, duration)
 
         treatment.save_treatment()
 
@@ -65,7 +65,7 @@ class Treatment:
         
         if treatment:
             treatment.name = row[1]
-            treatment.date_started = row[2]
+            treatment.duration = row[2]
 
         else:
             treatment = cls(row[1], row[2])
@@ -95,10 +95,10 @@ class Treatment:
 
 
     def save_treatment(self):
-        sql = '''INSERT INTO treatments (name, date_started)
+        sql = '''INSERT INTO treatments (name, duration)
         VALUES (?, ?)'''
 
-        CURSOR.execute(sql, (self.name, self.date_started))
+        CURSOR.execute(sql, (self.name, self.duration))
         CONN.commit()
 
         self.id = CURSOR.lastrowid
@@ -106,10 +106,10 @@ class Treatment:
 
     def update_treatment(self):
         sql = '''UPDATE treatments
-                SET name = ?, date_started = ?
+                SET name = ?, duration = ?
                 WHERE id = ?'''
         
-        CURSOR.execute(sql, (self.name, self.date_started))
+        CURSOR.execute(sql, (self.name, self.duration))
         CONN.commit()
 
     def delete_treatment(self):
