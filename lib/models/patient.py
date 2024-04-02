@@ -124,3 +124,9 @@ class Patient:
         return patient 
     
     @classmethod
+    def get_all_patients(cls):
+        sql = '''SELECT * FROM patients'''
+
+        patients = CURSOR.execute(sql).fetchall()
+
+        return [cls.patient_from_db(row) for row in patients]
