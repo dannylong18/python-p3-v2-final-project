@@ -92,4 +92,14 @@ class Patient:
         CURSOR.execute(sql, (self.name, self.birthday, self.insurance, self.treatment_id, self.id))
         CONN.commit()
 
+    def delete_patient(self):
+        sql = '''DELETE FROM patients
+                WHERE id = ?'''
+        
+        CURSOR.execute(sql, (self.id,))
+        CONN.commit()
+
+        del type(self).all[self.id]
+
+        self.id = None
     
