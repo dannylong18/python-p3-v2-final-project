@@ -57,3 +57,19 @@ class Patient:
     def treatment_id (self, treatment_id):
         if type(treatment_id) is int and Treatment.find_by_id(treatment_id):
             self._treatment_id = treatment_id
+
+    @classmethod
+    def create_table(cls):
+        sql = '''CREATE TABLE IF NOT EXISTS patients (
+        id INTEGER PRIMARY KEY, 
+        name TEXT, 
+        birthday INTEGER, 
+        insurance TEXT,
+        treatment_id INTEGER,
+        FOREIGN KEY (treatment_id) REFERENCES treatments(id)
+        )'''
+
+        CURSOR.execute(sql)
+        CONN.commit()
+
+    
