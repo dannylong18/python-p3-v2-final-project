@@ -22,4 +22,14 @@ class Treatment:
         else:
             raise ValueError ('Name must be a non-empty string')
         
+    @property
+    def date_started (self):
+        return self._date_started 
     
+    @date_started.setter
+    def date_started (self, date_started):
+        if isinstance (date_started, int) and len(date_started):
+            self._date_started = date_started
+
+        else:
+            raise ValueError ('Date_started must be an integer')
