@@ -3,7 +3,12 @@ from models.patient import Patient
 from models.treatment import Treatment
 
 def list_patients():
-    print("Performing useful function#1.")
+    patients = Patient.get_all_patients()
+    for patient in patients:
+        print(patient)
+
+
+
 
 
 def exit_program():
