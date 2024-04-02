@@ -83,10 +83,10 @@ class Treatment:
         return [cls.treatment_from_db(row) for row in treatments]
     
     @classmethod
-    def find_treatment_by_id (cls, id):
-        sql = '''SELECT * FROM treatments WHERE id = ?'''
+    def find_treatment_by_name (cls, name):
+        sql = '''SELECT * FROM treatments WHERE name = ?'''
 
-        treatment = CURSOR.execute(sql, (id,)).fetchone()
+        treatment = CURSOR.execute(sql, (name,)).fetchone()
 
         return cls.treatment_from_db(treatment) if treatment else None
     
