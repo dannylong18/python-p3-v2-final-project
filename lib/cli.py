@@ -9,7 +9,7 @@ from helpers import (
 def main():
     while True:
         menu()
-        choice = input("> ")
+        choice = input(">> ")
         if choice == "0":
             exit_program()
         elif choice == "1":
