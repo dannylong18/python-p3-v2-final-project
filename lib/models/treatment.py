@@ -32,4 +32,4 @@ class Treatment:
             self._date_started = date_started
 
         else:
-            raise ValueError ('Date_started must be an integer')
+            raise ValueError ('Date_started must be an appropriate integer')
