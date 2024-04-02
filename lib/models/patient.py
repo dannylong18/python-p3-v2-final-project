@@ -4,7 +4,7 @@ from models.treatment import Treatment
 class Patient:
 
     all = {}
-    
+
     def __init__(self, name, birthday, insurance, treatment_id, id = None):
         self.id = id
         self.name = name
@@ -74,7 +74,7 @@ class Patient:
         CURSOR.execute(sql)
         CONN.commit()
 
-    def save_patient (self):
+    def save_patient(self):
         sql = '''INSERT INTO patients (name, birthday, insurance, treatment_id)
         VALUES (?, ?, ?, ?)'''
 
@@ -83,3 +83,13 @@ class Patient:
 
         self.id = CURSOR.lastrowid
         type(self).all[self.id] = self
+
+    def update_patient(self):
+        sql = '''UPDATE patients
+                SET name = ?, birthday = ?, insurance = ?, treatment_id = ?
+                WHERE id = ?'''
+        
+        CURSOR.execute(sql, (self.name, self.birthday, self.insurance, self.treatment_id, self.id))
+        CONN.commit()
+
+    
