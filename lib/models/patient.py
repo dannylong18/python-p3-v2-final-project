@@ -103,3 +103,10 @@ class Patient:
 
         self.id = None
     
+    @classmethod
+    def create_patient(cls, name, birthday, insurance, treatment_id)
+        patient = cls(name, birthday, insurance, treatment_id)
+        patient.save_patient()
+        return patient 
+    
+    
