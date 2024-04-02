@@ -79,7 +79,7 @@ class Patient:
         CONN.commit()
 
     @classmethod
-    def create_patient(cls, name, birthday, insurance, treatment_id)
+    def create_patient(cls, name, birthday, insurance, treatment_id):
         patient = cls(name, birthday, insurance, treatment_id)
         patient.save_patient()
         return patient 

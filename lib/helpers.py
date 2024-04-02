@@ -53,7 +53,7 @@ def update_patient_information():
 
 def delete_patient():
     pt_name = input("Enter patient's name: ")
-    if patient := Patient.find_patient_by_name(pt_name)
+    if patient := Patient.find_patient_by_name(pt_name):
         patient.delete_patient()
         print(f"Patient {pt_name} deleted")
     

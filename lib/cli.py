@@ -2,7 +2,17 @@
 
 from helpers import (
     exit_program,
-    helper_1
+    list_patients,
+    find_patient_by_name,
+    create_patient,
+    update_patient_information,
+    delete_patient,
+    list_treatments,
+    find_treatment_by_name,
+    create_treatment,
+    update_treatment_information,
+    delete_treatment,
+    list_patients_in_treatment
 )
 
 
@@ -26,3 +36,9 @@ def menu():
 
 if __name__ == "__main__":
     main()
+
+
+       
+            
+
+    
