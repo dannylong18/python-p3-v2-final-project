@@ -90,6 +90,14 @@ class Treatment:
 
         return cls.treatment_from_db(treatment) if treatment else None
     
+    @classmethod
+    def find_treatment_by_id (cls, id):
+        sql = '''SELECT * FROM treatments WHERE id = ?'''
+
+        treatment = CURSOR.execute(sql, (id,)).fetchone()
+
+        return cls.treatment_from_db(treatment) if treatment else None
+
 
 
 
