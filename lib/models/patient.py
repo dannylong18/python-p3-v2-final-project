@@ -24,4 +24,17 @@ class Patient:
         else:
             raise ValueError ('Name must be a non-empty string')
         
+    @property
+    def birthday (self):
+        return self._birthday
+    
+    @birthday.setter
+    def birthday (self, birthday):
+        if isinstance (birthday, int) and len(birthday):
+            self._birthday = birthday
+
+        else: 
+            raise ValueError ('birthday must be an integer')
+        
+    @property
     
