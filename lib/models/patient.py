@@ -60,6 +60,10 @@ class Patient:
         if type(treatment_id) is int and Treatment.find_by_id(treatment_id):
             self._treatment_id = treatment_id
 
+
+
+
+
     @classmethod
     def create_table(cls):
         sql = '''CREATE TABLE IF NOT EXISTS patients (
@@ -74,35 +78,6 @@ class Patient:
         CURSOR.execute(sql)
         CONN.commit()
 
-    def save_patient(self):
-        sql = '''INSERT INTO patients (name, birthday, insurance, treatment_id)
-        VALUES (?, ?, ?, ?)'''
-
-        CURSOR.execute(sql, (self.name, self.birthday, self.insurance, self.treatment_id))
-        CONN.commit()
-
-        self.id = CURSOR.lastrowid
-        type(self).all[self.id] = self
-
-    def update_patient(self):
-        sql = '''UPDATE patients
-                SET name = ?, birthday = ?, insurance = ?, treatment_id = ?
-                WHERE id = ?'''
-        
-        CURSOR.execute(sql, (self.name, self.birthday, self.insurance, self.treatment_id, self.id))
-        CONN.commit()
-
-    def delete_patient(self):
-        sql = '''DELETE FROM patients
-                WHERE id = ?'''
-        
-        CURSOR.execute(sql, (self.id,))
-        CONN.commit()
-
-        del type(self).all[self.id]
-
-        self.id = None
-    
     @classmethod
     def create_patient(cls, name, birthday, insurance, treatment_id)
         patient = cls(name, birthday, insurance, treatment_id)
@@ -137,3 +112,37 @@ class Patient:
 
         patient = CURSOR.execute(sql, (id,)).fetchone()
         return cls.patient_from_db(patient) if patient else None
+    
+
+
+
+
+    def save_patient(self):
+        sql = '''INSERT INTO patients (name, birthday, insurance, treatment_id)
+        VALUES (?, ?, ?, ?)'''
+
+        CURSOR.execute(sql, (self.name, self.birthday, self.insurance, self.treatment_id))
+        CONN.commit()
+
+        self.id = CURSOR.lastrowid
+        type(self).all[self.id] = self
+
+    def update_patient(self):
+        sql = '''UPDATE patients
+                SET name = ?, birthday = ?, insurance = ?, treatment_id = ?
+                WHERE id = ?'''
+        
+        CURSOR.execute(sql, (self.name, self.birthday, self.insurance, self.treatment_id, self.id))
+        CONN.commit()
+
+    def delete_patient(self):
+        sql = '''DELETE FROM patients
+                WHERE id = ?'''
+        
+        CURSOR.execute(sql, (self.id,))
+        CONN.commit()
+
+        del type(self).all[self.id]
+
+        self.id = None
+    
