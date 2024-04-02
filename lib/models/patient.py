@@ -107,10 +107,10 @@ class Patient:
         return [cls.patient_from_db(row) for row in patients]
     
     @classmethod
-    def find_patient_by_id (cls, id):
-        sql = '''SELECT * FROM patients WHERE id = ?'''
+    def find_patient_by_name (cls, name):
+        sql = '''SELECT * FROM patients WHERE name = ?'''
 
-        patient = CURSOR.execute(sql, (id,)).fetchone()
+        patient = CURSOR.execute(sql, (name,)).fetchone()
         return cls.patient_from_db(patient) if patient else None
     
 
