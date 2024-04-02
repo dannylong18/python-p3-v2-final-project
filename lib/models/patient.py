@@ -109,4 +109,18 @@ class Patient:
         patient.save_patient()
         return patient 
     
+    @classmethod
+    def patient_from_db(cls, row):
+        patient = cls.all.get(row[0])
+        if patient:
+            patient.name = row[1]
+            patient.birthday = row[2]
+            patient.insurance = row[3]
+            patient.treatment_id = row[4]
+        else:
+            patient = cls(row[1], row[2], row[3], row[4])
+            patient.id = row[0]
+            cls.all[patient.id] = patient
+        return patient 
     
+    @classmethod
