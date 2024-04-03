@@ -30,14 +30,14 @@ class Treatment:
     
     @duration.setter
     def duration (self, duration):
-        if isinstance (duration, int) and len(duration):
+        if isinstance (duration, int):
             self._duration = duration
 
         else:
             raise ValueError ('Duration must be an appropriate integer')
         
     
-
+#######
 
 
     @classmethod
@@ -45,9 +45,15 @@ class Treatment:
         sql = '''CREATE TABLE IF NOT EXISTS treatments (
         id INTEGER PRIMARY KEY, 
         name TEXT, 
-        duration INTEGER,
-        )'''
+        duration INTEGER)
+        '''
 
+        CURSOR.execute(sql)
+        CONN.commit()
+
+    @classmethod
+    def drop_table(cls):
+        sql = '''DROP TABLE IF EXISTS treatments'''
         CURSOR.execute(sql)
         CONN.commit()
 
@@ -99,7 +105,7 @@ class Treatment:
         return cls.treatment_from_db(treatment) if treatment else None
 
 
-
+#######
 
 
     def save_treatment(self):

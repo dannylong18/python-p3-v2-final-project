@@ -33,7 +33,7 @@ class Patient:
     
     @birthday.setter
     def birthday (self, birthday):
-        if isinstance (birthday, int) and len(birthday):
+        if isinstance (birthday, int):
             self._birthday = birthday
 
         else: 
@@ -57,11 +57,11 @@ class Patient:
     
     @treatment_id.setter
     def treatment_id (self, treatment_id):
-        if type(treatment_id) is int and Treatment.find_by_id(treatment_id):
+        if type(treatment_id) is int and Treatment.find_treatment_by_id(treatment_id):
             self._treatment_id = treatment_id
 
 
-
+#######
 
 
     @classmethod
@@ -72,9 +72,15 @@ class Patient:
         birthday INTEGER, 
         insurance TEXT,
         treatment_id INTEGER,
-        FOREIGN KEY (treatment_id) REFERENCES treatments(id)
-        )'''
+        FOREIGN KEY (treatment_id) REFERENCES treatments(id))
+        '''
 
+        CURSOR.execute(sql)
+        CONN.commit()
+
+    @classmethod
+    def drop_table(cls):
+        sql = '''DROP TABLE IF EXISTS patients'''
         CURSOR.execute(sql)
         CONN.commit()
 
@@ -112,9 +118,9 @@ class Patient:
 
         patient = CURSOR.execute(sql, (name,)).fetchone()
         return cls.patient_from_db(patient) if patient else None
-    
 
 
+#######
 
 
     def save_patient(self):

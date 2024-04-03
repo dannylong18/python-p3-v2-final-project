@@ -23,7 +23,7 @@ def main():
         if choice == "0":
             exit_program()
         elif choice == "1":
-            helper_1()
+            list_patients()
         else:
             print("Invalid choice")
 
@@ -31,7 +31,7 @@ def main():
 def menu():
     print("Please select an option:")
     print("0. Exit the program")
-    print("1. Create patient")
+    print("1. Type '1' to list all patients")
 
 
 if __name__ == "__main__":
