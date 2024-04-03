@@ -121,6 +121,6 @@ def list_patients_in_treatment():
                     )
             
 def exit_program():
-    print("Goodbye!")
+    print("Exiting program...Goodbye!")
     exit()
 
