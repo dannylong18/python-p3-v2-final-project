@@ -10,7 +10,7 @@ class Treatment:
         self.duration = duration
 
     def __repr__(self):
-        return f"<Treatment {self.id}: {self.name}, {self.duration}>"
+        return f"< Treatment {self.id} is {self.name} for {self.duration} weeks >"
     
     @property
     def name (self):

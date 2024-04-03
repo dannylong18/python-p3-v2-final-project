@@ -13,7 +13,7 @@ class Patient:
         self.treatment_id = treatment_id
 
     def __repr__(self):
-        return f"<Patient {self.id}: {self.name}, {self.birthday}, {self.insurance}>"
+        return f"< Patient: Name - {self.name}, DOB - {self.birthday}, Insurance - {self.insurance} >"
     
     @property
     def name (self):
@@ -33,11 +33,11 @@ class Patient:
     
     @birthday.setter
     def birthday (self, birthday):
-        if isinstance (birthday, int):
+        if isinstance (birthday, str) and len(birthday):
             self._birthday = birthday
 
         else: 
-            raise ValueError ('birthday must be an appropriate integer')
+            raise ValueError ('birthday must be an non-empty string')
         
     @property
     def insurance (self):
@@ -60,6 +60,9 @@ class Patient:
         if type(treatment_id) is int and Treatment.find_treatment_by_id(treatment_id):
             self._treatment_id = treatment_id
 
+        else:
+            raise ValueError ('Treatment_id must be appropriate integer')
+
 
 #######
 
@@ -69,7 +72,7 @@ class Patient:
         sql = '''CREATE TABLE IF NOT EXISTS patients (
         id INTEGER PRIMARY KEY, 
         name TEXT, 
-        birthday INTEGER, 
+        birthday TEXT, 
         insurance TEXT,
         treatment_id INTEGER,
         FOREIGN KEY (treatment_id) REFERENCES treatments(id))

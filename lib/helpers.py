@@ -15,9 +15,10 @@ def find_patient_by_name():
 
 def create_patient():
     name = input("*** Enter patient's first and last name: ")
-    birthday = input("*** Enter patient's date of birth (Example: March 22, 1995 >> 03221995): ")
+    birthday = input("*** Enter patient's date of birth as shown (Example: March 22, 1995 >> '03/22/1995') --> : ")
     insurance = input("*** Enter patient's insurance: ")
-    treatment_id = input("*** Enter patient's treatment id (Type '1' for Physical Therapy; '2' for Pain Management; '3' for Surgery): )")
+    treatment_id = input("*** Enter treatment type for patient (Type '1' for Physical Therapy; '2' for Pain Management; '3' for Surgery) --> :")
+    treatment_id = int(treatment_id)
 
     try:
         patient = Patient.create_patient(name, birthday, insurance, treatment_id)
@@ -27,20 +28,19 @@ def create_patient():
         print(f'Error creating patient, please start again: ', exc)
 
 def update_patient_information():
-    pt_name = input("*** Enter the patient's first and last name: ")
+    pt_name = input("*** Enter the patient's original first and last name: ")
     if patient := Patient.find_patient_by_name(pt_name):
         try:
             name = input("*** Enter patient's new first and last name: ")
             patient.name = name
 
-            birthday = input("*** Enter patient's date of birth (Example: March 22, 1995 >> 03221995): ")
-            birthday = int(birthday)
+            birthday = input("*** Enter patient's date of birth (Example: March 22, 1995 >> '03/22/1995') --> : ")
             patient.birthday = birthday
 
             insurance = input("*** Enter patient's insurance: ")
             patient.insurance = insurance
 
-            treatment_id = input("*** Enter patient's treatment id (For patient in Physical Therapy, type '1'; in Pain Management, type '2'; undergoing surgery, type '3'): )")
+            treatment_id = input("*** Enter patient's treatment id (For patient in Physical Therapy, type '1'; in Pain Management, type '2'; undergoing surgery, type '3') --> : ")
             treatment_id = int(treatment_id)
             patient.treatment_id = treatment_id
 
@@ -91,7 +91,7 @@ def update_treatment_information():
             name = input("*** Enter patient's new first and last name: ")
             treatment.name = name
 
-            duration = input("*** Enter duration of treatment in weeks (For example, 3 months = 12 weeks; so enter 12): ")
+            duration = input("*** Enter duration of treatment in weeks (For example, 3 months = 12 weeks; so enter 12) --> : ")
             duration = int(duration) 
             treatment.duration = duration
 
@@ -103,7 +103,7 @@ def update_treatment_information():
     else: print(f"Treatment {treatment_name} not found")
 
 def delete_treatment():
-    treat_id = input("*** To delete treatments: type '1' for physical therapy; type '2' for pain management; for surgery, type '3'): )")
+    treat_id = input("*** To delete treatment: type '1' for physical therapy --- type '2' for pain management --- for surgery, type '3' --> : ")
     if treamtent := Treatment.find_treatment_by_id(treat_id):
         treamtent.delete_treatment()
         print(f"Treatment deleted")
@@ -111,7 +111,7 @@ def delete_treatment():
     else: print(f"Treatment not found")
 
 def list_patients_in_treatment():
-        treat_id = input("*** To list patients undergoing: physical therapy, type '1'; pain management, type '2'; surgery, type '3'): )")
+        treat_id = input("*** To list patients undergoing: physical therapy, type '1' --- pain management, type '2' --- surgery, type '3' --> : ")
         treat_id = int(treat_id)
         if treatment_id := Treatment.find_treatment_by_id(treat_id):
             for patient in treatment_id.patients():

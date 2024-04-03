@@ -15,10 +15,10 @@ def seed_database():
     pain_management = Treatment.create_treatment('Pain Management', 12)
     surgery = Treatment.create_treatment('Surgery', 52)
 
-    Patient.create_patient('John Doe', 12181991, 'Blue Cross', physical_therapy.id)
-    Patient.create_patient('Jane Buck', 1031980, 'United', pain_management.id)
-    Patient.create_patient('Justin Fawn', 5221986, 'Cigna', surgery.id)
-    Patient.create_patient('Jordan Deer', 7221945, 'Medicare', surgery.id)
+    Patient.create_patient('John Doe', '12/18/1991', 'Blue Cross', physical_therapy.id)
+    Patient.create_patient('Jane Buck', '10/03/1980', 'United', pain_management.id)
+    Patient.create_patient('Justin Fawn', '05/22/1986', 'Cigna', surgery.id)
+    Patient.create_patient('Jordan Deer', '07/22/1945', 'Medicare', surgery.id)
 
 seed_database()
 print("Database Seeded!")
