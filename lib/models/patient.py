@@ -13,7 +13,8 @@ class Patient:
         self.treatment_id = treatment_id
 
     def __repr__(self):
-        return f"< Patient: Name - {self.name}, DOB - {self.birthday}, Insurance - {self.insurance} >"
+        return f"""{self.id}. Name: {self.name}, DOB:{self.birthday}, Insurance:{self.insurance} 
+                """
     
     @property
     def name (self):

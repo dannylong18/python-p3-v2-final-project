@@ -103,7 +103,15 @@ def update_treatment_information():
     else: print(f"Treatment {treatment_name} not found")
 
 def delete_treatment():
-    treat_id = input("*** To delete treatment: type '1' for physical therapy --- type '2' for pain management --- for surgery, type '3' --> : ")
+    treat_id = input("""
+                    
+            *** To delete treatment below, type corresponding number : 
+            
+            --- type '1' for physical therapy --- 
+            --- type '2' for pain management --- 
+            --- type '3' for surgery --> : 
+                     
+                     """)
     if treamtent := Treatment.find_treatment_by_id(treat_id):
         treamtent.delete_treatment()
         print(f"Treatment deleted")
@@ -111,7 +119,15 @@ def delete_treatment():
     else: print(f"Treatment not found")
 
 def list_patients_in_treatment():
-        treat_id = input("*** To list patients undergoing: physical therapy, type '1' --- pain management, type '2' --- surgery, type '3' --> : ")
+        treat_id = input("""
+                         
+            *** To list patients undergoing: 
+            
+            --- physical therapy, type '1' --- 
+            --- pain management, type '2' --- 
+            --- surgery, type '3' --- 
+                         
+                         --> : """)
         treat_id = int(treat_id)
         if treatment_id := Treatment.find_treatment_by_id(treat_id):
             for patient in treatment_id.patients():
@@ -121,6 +137,10 @@ def list_patients_in_treatment():
                     )
             
 def exit_program():
-    print("Exiting program...Goodbye!")
+    print("""
+          
+          Exiting program...Goodbye!
+          
+          """)
     exit()
 
