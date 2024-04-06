@@ -36,6 +36,7 @@ def main():
                     create_patient()
                 elif choice == "6":
                     list_patients()
+                    print()
                     update_patient_information()
                 elif choice == "7":
                     list_patients()
@@ -58,6 +59,7 @@ def main():
                     create_treatment()
                 elif choice == "11":
                     list_treatments()
+                    print()
                     update_treatment_information()
                 elif choice == "12":
                     list_treatments()
@@ -75,6 +77,7 @@ def main():
 
 def menu():
     print("""
+--------------------------------------------------------------------------
     *** Welcome to the MD Database CLI interface! ***
           
 
@@ -83,11 +86,13 @@ def menu():
     --> Type '1' to list all the options for patients
     --> Type '2' to list all the options for treatments
     --> Type '0' to exit the program
+--------------------------------------------------------------------------
           """)
 
 def patient_menu():
     print()
     print("""
+--------------------------------------------------------------------------
     *** Below are the options for patients in the database: ***
 
 --> Type '3' to list all the patients in database
@@ -97,11 +102,13 @@ def patient_menu():
 --> Type '7' to delete a patient in database
           
 --> Type '0' to return to main menu
+--------------------------------------------------------------------------
           """)
 
 def treatment_menu():
     print()
     print("""
+--------------------------------------------------------------------------
     *** Below are the options for treatments in the database: ***
           
     --> Type '8' to list all treatments with details
@@ -112,6 +119,7 @@ def treatment_menu():
     --> Type '13' to list all patients undergoing a particular treatment
           
     --> Type '0' to return to main menu
+--------------------------------------------------------------------------
           """)
 
 if __name__ == "__main__":
