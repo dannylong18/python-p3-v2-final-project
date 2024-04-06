@@ -27,6 +27,7 @@ def main():
             while True:
                 patient_menu()
                 choice = input("Type number and press 'Enter/Return' to execute command --> ")
+                print()
                 if choice == "3":
                     list_patients()
                 elif choice == "4":
@@ -34,8 +35,11 @@ def main():
                 elif choice == "5":
                     create_patient()
                 elif choice == "6":
+                    list_patients()
                     update_patient_information()
                 elif choice == "7":
+                    list_patients()
+                    print()
                     delete_patient()
                 elif choice == "0":
                     main()
@@ -45,6 +49,7 @@ def main():
             while True:
                 treatment_menu()
                 choice = input("Type number and press 'Enter/Return' to execute command --> ")
+                print()
                 if choice == "8":
                     list_treatments()
                 elif choice == "9":
@@ -52,10 +57,13 @@ def main():
                 elif choice == "10":
                     create_treatment()
                 elif choice == "11":
+                    list_treatments()
                     update_treatment_information()
                 elif choice == "12":
+                    list_treatments()
                     delete_treatment()
                 elif choice == "13":
+                    list_treatments()
                     list_patients_in_treatment()
                 elif choice == "0":
                     main()
@@ -67,13 +75,13 @@ def main():
 
 def menu():
     print("""
-          *** Welcome to the MD Database CLI interface! ***
+    *** Welcome to the MD Database CLI interface! ***
           
 
     Please select from an option below and hit 'Enter/Return':
 
-    --> Type '1' to list all the options for patients in database
-    --> Type '2' to list all the options for treatments in database
+    --> Type '1' to list all the options for patients
+    --> Type '2' to list all the options for treatments
     --> Type '0' to exit the program
           """)
 
@@ -96,7 +104,7 @@ def treatment_menu():
     print("""
     *** Below are the options for treatments in the database: ***
           
-    --> Type '8' to list all the treatments in database
+    --> Type '8' to list all treatments with details
     --> Type '9' to search for a treatment by name in database
     --> Type '10' to create a treatment to add to database
     --> Type '11' to update a treatment's information in database

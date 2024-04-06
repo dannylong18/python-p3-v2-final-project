@@ -10,7 +10,7 @@ class Treatment:
         self.duration = duration
 
     def __repr__(self):
-        return f"Treatment {self.id} is {self.name} for {self.duration} weeks "
+        return f"{self.id}. {self.name} for {self.duration} weeks "
     
     @property
     def name (self):
@@ -123,10 +123,10 @@ class Treatment:
                 SET name = ?, duration = ?
                 WHERE id = ?'''
         
-        CURSOR.execute(sql, (self.name, self.duration))
+        CURSOR.execute(sql, (self.name, self.duration, self.id))
         CONN.commit()
 
-    def delete_treatment(self):
+    def delete_treatment_from_db(self):
         sql = '''DELETE FROM treatments
                 WHERE id = ?'''
         
@@ -146,4 +146,4 @@ class Treatment:
 
         patients = CURSOR.fetchall()
 
-        return [Patient.patient_from_db(patient) for patient in patients]
+        return [Patient.patient_from_db(patient) for patient in patients if patient]

@@ -13,8 +13,11 @@ class Patient:
         self.treatment_id = treatment_id
 
     def __repr__(self):
-        return f"""{self.id}. Name: {self.name}, DOB:{self.birthday}, Insurance:{self.insurance} 
-                """
+        treatment = Treatment.all.get(self.treatment_id, None)
+        if treatment:
+            return f"""{self.id}. Name: {self.name}, DOB: {self.birthday}, Insurance: {self.insurance}, undergoing {treatment.name} treatment"""
+        else:
+            return f"""{self.id}. Name: {self.name}, DOB: {self.birthday}, Insurance: {self.insurance}, No treatment assigned"""
     
     @property
     def name (self):
@@ -58,11 +61,11 @@ class Patient:
     
     @treatment_id.setter
     def treatment_id (self, treatment_id):
-        if type(treatment_id) is int and Treatment.find_treatment_by_id(treatment_id):
+        if treatment_id is None or (isinstance(treatment_id, int)) and Treatment.find_treatment_by_id(treatment_id):
             self._treatment_id = treatment_id
 
         else:
-            raise ValueError ('Treatment_id must be appropriate integer')
+            raise ValueError ('Treatment_id must be appropriate integer or None')
 
 
 #######
@@ -123,6 +126,12 @@ class Patient:
         patient = CURSOR.execute(sql, (name,)).fetchone()
         return cls.patient_from_db(patient) if patient else None
 
+    @classmethod
+    def find_patient_by_id (cls, id):
+        sql = '''SELECT * FROM patients WHERE id = ?'''
+
+        patient = CURSOR.execute(sql, (id,)).fetchone()
+        return cls.patient_from_db(patient) if patient else None
 
 #######
 
@@ -145,7 +154,7 @@ class Patient:
         CURSOR.execute(sql, (self.name, self.birthday, self.insurance, self.treatment_id, self.id))
         CONN.commit()
 
-    def delete_patient(self):
+    def delete_patient_from_db(self):
         sql = '''DELETE FROM patients
                 WHERE id = ?'''
         

@@ -10,14 +10,21 @@ def list_patients():
 def find_patient_by_name():
     name = input("*** Enter the patient's first and last name: ")
     patient = Patient.find_patient_by_name(name)
-
+    print()
     print(patient) if patient else print (f'Patient {name} not found')
 
 def create_patient():
     name = input("*** Enter patient's first and last name: ")
-    birthday = input("*** Enter patient's date of birth as shown (Example: March 22, 1995 >> '03/22/1995') --> : ")
+
+    birthday = input("""*** Enter patient's date of birth
+    (Example: if birthday is March 22, 1995 >> Enter '03/22/1995') 
+        --> : """)
+    
     insurance = input("*** Enter patient's insurance: ")
-    treatment_id = input("*** Enter treatment type for patient (Type '1' for Physical Therapy; '2' for Pain Management; '3' for Surgery) --> :")
+
+    list_treatments()
+    print()
+    treatment_id = input("*** Enter number from treatment list above -->:")
     treatment_id = int(treatment_id)
 
     try:
@@ -28,23 +35,29 @@ def create_patient():
         print(f'Error creating patient, please start again: ', exc)
 
 def update_patient_information():
-    pt_name = input("*** Enter the patient's original first and last name: ")
-    if patient := Patient.find_patient_by_name(pt_name):
+    pt_id = input("*** Enter the number of the patient you would like to update:")
+    if patient := Patient.find_patient_by_id(pt_id):
         try:
             name = input("*** Enter patient's new first and last name: ")
             patient.name = name
 
-            birthday = input("*** Enter patient's date of birth (Example: March 22, 1995 >> '03/22/1995') --> : ")
+            birthday = input("""*** Enter patient's date of birth 
+    (Example: March 22, 1995 >> '03/22/1995') 
+        --> : """)
             patient.birthday = birthday
 
             insurance = input("*** Enter patient's insurance: ")
             patient.insurance = insurance
 
-            treatment_id = input("*** Enter patient's treatment id (For patient in Physical Therapy, type '1'; in Pain Management, type '2'; undergoing surgery, type '3') --> : ")
+            list_treatments()
+            treatment_id = input("""*** Enter number from treatment list above: 
+        --> : """)
             treatment_id = int(treatment_id)
             patient.treatment_id = treatment_id
 
             patient.update_patient()
+            print()
+            print(f"Patient {pt_id} updated! --> {patient}")
 
         except Exception as exc:
             print("Error updating patient, please try again: ", exc)
@@ -52,12 +65,20 @@ def update_patient_information():
     else: print(f"Patient {pt_name} not found")
 
 def delete_patient():
-    pt_name = input("Enter patient's name: ")
-    if patient := Patient.find_patient_by_name(pt_name):
-        patient.delete_patient()
-        print(f"Patient {pt_name} deleted")
-    
-    else: print(f"Patient {pt_name} not found")
+    pt_id = input("*** Enter the number of the patient you would like to delete:")
+    patient = Patient.find_patient_by_id(pt_id)
+    if patient:
+        patient.delete_patient_from_db()
+        print()
+        print(f"Patient {pt_id} deleted")
+
+        remaining_pts = Patient.get_all_patients()
+
+        for index, patient in enumerate(remaining_pts, start=1):
+            patient.id = index
+            patient.update_patient()
+
+    else: print(f"Patient {pt_id} not found")
 
 
 
@@ -76,7 +97,11 @@ def find_treatment_by_name():
 
 def create_treatment():
     name = input("*** Enter treatment name: ")
-    duration = input("*** Enter duration of treatment in weeks (For example, 3 months = 12 weeks; so enter 12): ")
+    duration = input("""
+*** Enter duration of treatment in weeks 
+(For example, 3 months = 12 weeks; so enter 12):""")
+    duration = int(duration)
+
     try:
         treatment = Treatment.create_treatment(name, duration)
         print(f'Sucessfully created new treatment! --> {treatment}')
@@ -85,56 +110,69 @@ def create_treatment():
         print(f'Error creating treatment, please start again: ', exc)
 
 def update_treatment_information():
-    treatment_name = input("*** Enter the patient's first and last name: ")
-    if treatment := Treatment.find_treatment_by_name(treatment_name):
+    treatment_id = input("*** Enter the number above corresponding to the treatment to update: ")
+    if treatment := Treatment.find_treatment_by_id(treatment_id):
         try:
-            name = input("*** Enter patient's new first and last name: ")
+            name = input("*** Enter a new name for the treatment: ")
             treatment.name = name
 
-            duration = input("*** Enter duration of treatment in weeks (For example, 3 months = 12 weeks; so enter 12) --> : ")
+            duration = input("""*** Enter new duration of treatment in weeks 
+    (For example, 3 months = 12 weeks; so enter 12) 
+        --> : """)
             duration = int(duration) 
             treatment.duration = duration
 
             treatment.update_treatment()
+            print(f"""
+ ***Treatment successfully updated! --> {treatment}""")
 
         except Exception as exc:
             print("Error updating treatment, please try again: ", exc)
     
-    else: print(f"Treatment {treatment_name} not found")
+    else: print(f"Treatment {treatment_id} not found")
 
 def delete_treatment():
     treat_id = input("""
                     
-            *** To delete treatment below, type corresponding number : 
-            
-            --- type '1' for physical therapy --- 
-            --- type '2' for pain management --- 
-            --- type '3' for surgery --> : 
-                     
-                     """)
-    if treamtent := Treatment.find_treatment_by_id(treat_id):
-        treamtent.delete_treatment()
-        print(f"Treatment deleted")
+*** To delete treatment, enter corresponding number for treatment above; 
+    or enter 0 to return to main menu:
+                    
+    --> : """)
     
-    else: print(f"Treatment not found")
+    treatment = Treatment.find_treatment_by_id(int(treat_id))
+
+    if not treatment:
+        print(f"Treatment {treat_id} not found")
+        return 
+    
+    patients = treatment.patients()
+
+    treatment.delete_treatment_from_db()
+    print(f"***Treatment {treat_id} deleted")
+
+    if patients:
+        for patient in patients:
+            patient.treatment_id = None
+            patient.update_patient()
 
 def list_patients_in_treatment():
         treat_id = input("""
                          
-            *** To list patients undergoing: 
-            
-            --- physical therapy, type '1' --- 
-            --- pain management, type '2' --- 
-            --- surgery, type '3' --- 
+    *** To view patients, enter number of desired treatment above: 
                          
-                         --> : """)
+            --> : """)
         treat_id = int(treat_id)
-        if treatment_id := Treatment.find_treatment_by_id(treat_id):
-            for patient in treatment_id.patients():
-                print(patient)
-
-        else: print(f"Treatment {treat_id} does not exist"
-                    )
+        treatment = Treatment.find_treatment_by_id(treat_id)
+        if treatment:
+            patients = treatment.patients()
+            if patients:
+                for patient in patients:
+                    print()
+                    print(patient)
+            
+            else: print("No patients undergoing this treatment at this time")
+       
+        else: print(f"treatment {treat_id} does not exist")
             
 def exit_program():
     print("""
