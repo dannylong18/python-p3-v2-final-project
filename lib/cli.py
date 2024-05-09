@@ -35,12 +35,8 @@ def main():
                 elif choice == "5":
                     create_patient()
                 elif choice == "6":
-                    #list_patients()
-                    print()
                     update_patient_information()
                 elif choice == "7":
-                    #list_patients()
-                    print()
                     delete_patient()
                 elif choice == "0":
                     main()
@@ -58,13 +54,10 @@ def main():
                 elif choice == "10":
                     create_treatment()
                 elif choice == "11":
-                    #list_treatments()
                     update_treatment_information()
                 elif choice == "12":
-                    #list_treatments()
                     delete_treatment()
                 elif choice == "13":
-                    #list_treatments()
                     list_patients_in_treatment()
                 elif choice == "0":
                     main()

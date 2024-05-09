@@ -47,7 +47,6 @@ def update_patient_information():
     patients = list_patients()
     print()
     selected_patient = input("*** Enter the number of the patient you would like to update:")
-    #patient = patients[int(selected_patient) - 1]
     
     try:
             selected_index = int(selected_patient) - 1
@@ -117,18 +116,7 @@ def delete_patient():
         else: print('Invalid selection. Please enter number corresponding to patient.')
 
     except ValueError: print('Invalid input. Please try again.')
-    # patient = patients[int(selected_patient) - 1]
-    # #if patient:
-    # patient.delete_patient_from_db()
-    # print()
-    # print(f"Patient deleted")
-
-    # remaining_pts = Patient.get_all_patients()
-
-    # for index, patient in enumerate(remaining_pts, start=1):
-    #     patient.id = index
-    #     patient.update_patient()
-
+    
 
 #######
 
