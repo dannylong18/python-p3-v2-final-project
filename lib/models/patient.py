@@ -12,13 +12,20 @@ class Patient:
         self.insurance = insurance
         self.treatment_id = treatment_id
 
-    def __repr__(self):
+    # def __repr__(self):
+    #     treatment = Treatment.all.get(self.treatment_id, None)
+    #     if treatment:
+    #         return f"""{self.id}. Name: {self.name}, DOB: {self.birthday}, Insurance: {self.insurance}, undergoing {treatment.name} treatment"""
+    #     else:
+    #         return f"""{self.id}. Name: {self.name}, DOB: {self.birthday}, Insurance: {self.insurance}, No treatment assigned"""
+    
+    def display_info (self):
         treatment = Treatment.all.get(self.treatment_id, None)
         if treatment:
             return f"""{self.id}. Name: {self.name}, DOB: {self.birthday}, Insurance: {self.insurance}, undergoing {treatment.name} treatment"""
         else:
             return f"""{self.id}. Name: {self.name}, DOB: {self.birthday}, Insurance: {self.insurance}, No treatment assigned"""
-    
+
     @property
     def name (self):
         return self._name 

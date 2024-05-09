@@ -9,8 +9,11 @@ class Treatment:
         self.name = name
         self.duration = duration
 
-    def __repr__(self):
-        return f"{self.id}. {self.name} for {self.duration} weeks "
+    # def __repr__(self):
+    #     return f"{self.id}. {self.name} for {self.duration} weeks "
+    
+    def display_info (self):
+        return f"{self.id}. {self.name} for {self.duration} weeks"
     
     @property
     def name (self):
