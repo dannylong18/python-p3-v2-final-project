@@ -29,10 +29,21 @@ def create_patient():
     
     insurance = input("*** Enter patient's insurance: ")
     print()
-    list_treatments()
+
+    treatments = list_treatments()
     print()
-    treatment_id = input("*** Enter number from treatment list above -->:")
-    treatment_id = int(treatment_id)
+    selected_number = input("""*** Enter number from treatment list above or 
+press 'Enter/Return' to keep current information: 
+    --> : """)
+
+    selected_treatment_index = int(selected_number) - 1
+    if selected_treatment_index >= 0 and selected_treatment_index < len(treatments):
+        selected_treatment = treatments[selected_treatment_index]
+        treatment_id = selected_treatment.id
+
+    else: 
+        print ('Invalid choice. Please try again.')
+        return
 
     try:
         patient = Patient.create_patient(name, birthday, insurance, treatment_id)
@@ -52,11 +63,11 @@ def update_patient_information():
             selected_index = int(selected_patient) - 1
             if selected_index >= 0 and selected_index < len(patients):
                 patient = patients[selected_index]
-                treatment = Treatment.all.get(patient.treatment_id, None)
+                treatment_id = Treatment.all.get(patient.treatment_id, None)
                 if patient:
                     try:
                         print(f"""
-        Patient chosen --> Name: {patient.name}, DOB: {patient.birthday}, Insurance: {patient.insurance}, undergoing {treatment.name} treatment""")
+        Patient chosen --> Name: {patient.name}, DOB: {patient.birthday}, Insurance: {patient.insurance}, undergoing {treatment_id.name} treatment""")
                         print()
                         name = input("*** Enter patient's new first and last name or press 'Enter/Return' to keep current information: ")
                         if name: 
@@ -72,15 +83,22 @@ def update_patient_information():
                         if insurance:
                             patient.insurance = insurance
 
-                        list_treatments()
+                        treatments = list_treatments()
                         print()
-                        treatment_id = input("""*** Enter number from treatment list above or 
+                        selected_number = input("""*** Enter number from treatment list above or 
                     press 'Enter/Return' to keep current information: 
                         --> : """)
-                        if treatment_id:
-                            treatment_id = int(treatment_id)
+
+                        selected_treatment_index = int(selected_number) - 1
+                        if selected_treatment_index >= 0 and selected_treatment_index < len(treatments):
+                            selected_treatment = treatments[selected_treatment_index]
+                            treatment_id = selected_treatment.id
                             patient.treatment_id = treatment_id
 
+                        else: 
+                            print ('Invalid choice. Please try again.')
+                            return
+                        
                         patient.update_patient()
                         new_treatment = Treatment.all.get(patient.treatment_id, None)
                         print()
