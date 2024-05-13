@@ -19,12 +19,6 @@ class Patient:
     #     else:
     #         return f"""{self.id}. Name: {self.name}, DOB: {self.birthday}, Insurance: {self.insurance}, No treatment assigned"""
     
-    def display_info (self):
-        treatment = Treatment.all.get(self.treatment_id, None)
-        if treatment:
-            return f"""{self.id}. Name: {self.name}, DOB: {self.birthday}, Insurance: {self.insurance}, undergoing {treatment.name} treatment"""
-        else:
-            return f"""{self.id}. Name: {self.name}, DOB: {self.birthday}, Insurance: {self.insurance}, No treatment assigned"""
 
     @property
     def name (self):

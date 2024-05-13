@@ -144,6 +144,7 @@ def list_treatments():
     for i, treatment in enumerate(treatments, start=1):
         print()
         print(f'{i}. {treatment.name} for {treatment.duration} weeks')
+        
     return treatments
 
 def find_treatment_by_name():
@@ -151,6 +152,8 @@ def find_treatment_by_name():
     treatment = Treatment.find_treatment_by_name(name)
 
     print(f'{treatment.name} for {treatment.duration} weeks') if treatment else print (f'Treatment named {name} not found')
+
+    return treatment
 
 def create_treatment():
     name = input("*** Enter treatment name: ")
